@@ -1,0 +1,13 @@
+add validations to your models automatically based on the schema with:
+
+validations_from_schema
+
+| schema type | rails validation          |
+|-------------|---------------------------|
+| non-null    | validates_presence_of     |
+| limit       | validates_length_of       |
+| integer     | validates_numericality_of |
+| float       | validates_numericality_of |
+
+
+Tested on MySQL
