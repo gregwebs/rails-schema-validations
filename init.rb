@@ -1,1 +1,1 @@
-require 'validations_from_schema'
+require 'rails-schema-validations'

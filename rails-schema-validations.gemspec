@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails-schema-validations}
-  s.version = "0.3"
+  s.version = "0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Greg Weber"]
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "README",
-     "lib/validations_from_schema.rb"
+     "lib/rails-schema-validations.rb"
   ]
   s.homepage = %q{http://github.com/gregwebs/rails-schema-validations}
   s.rdoc_options = ["--charset=UTF-8"]

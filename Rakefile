@@ -3,7 +3,7 @@ begin
   Jeweler::Tasks.new do |s|
     root_files = FileList["README"]
     s.name = "rails-schema-validations"
-    s.version = 0.3
+    s.version = 0.4
     s.summary = "Automatically generate validations from the schema"
     s.description = "Automatically generate validations from the schema"
     s.email = "greg@gregweber.info"
