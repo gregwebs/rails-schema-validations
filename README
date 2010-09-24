@@ -1,13 +1,17 @@
-add validations to your models automatically based on the schema with:
+Add validations to your models automatically based on the schema constraints.
+Place this one line in your model:
 
 validations_from_schema
 
-| schema type | rails validation          |
-|-------------|---------------------------|
-| non-null    | validates_presence_of     |
-| limit       | validates_length_of       |
-| integer     | validates_numericality_of |
-| float       | validates_numericality_of |
+
+| schema type | rails validation          | extra                     |
+|-------------|---------------------------|---------------------------|
+| non-null    | validates_presence_of     |                           |
+| string      | validates_length_of       | :limit                    |
+| integer     | validates_numericality_of | :only_integer, :less_than |
+| float       | validates_numericality_of |                           |
 
 
-Tested on MySQL
+Tested on MySQL.
+Does not detect what database is being used.
+This gem may have problems on other databases, particularly Sqlite.
