@@ -14,8 +14,8 @@ def load_schema
         t.send(kind, "#{kind}_notnull", :null => false)
       end
       %w(string integer).each do |kind|
-        t.send(kind, "#{kind}_limit", :limit => 10)
-        t.send(kind, "#{kind}_limit_notnull", :limit => 10, :null => false)
+        t.send(kind, "#{kind}_limit", :limit => 4)
+        t.send(kind, "#{kind}_limit_notnull", :limit => 4, :null => false)
       end
       t.timestamps
     end
@@ -61,8 +61,8 @@ context Model do
   asserts_error_on :integer_limit, 1.1
 
   asserts_error_on :string_limit, '12345678910'
-  asserts_error_on :integer_limit, 12345678910
+  asserts_error_on :integer_limit, 2 ** (8 * 4)
 
   asserts_no_error_on :string_limit, '12'
-  asserts_no_error_on :integer_limit, 1
+  asserts_no_error_on :integer_limit, 2 ** (8 * 3)
 end

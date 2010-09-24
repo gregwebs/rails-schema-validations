@@ -4,17 +4,20 @@ module ActiveRecord::Validations::ClassMethods
     self.content_columns.map do |col|
       case col.type
       when :integer
-        validates_numericality_of col.name, :only_integer => true, :allow_nil => col.null
+        # assuming unsigned!
+        validates_numericality_of col.name, :only_integer => true, :allow_nil => col.null,
+          :less_than => (2 ** (8 * col.limit)) / 2
       when :float
+        # less_than would need to look at col.scale, col.float
         validates_numericality_of col.name, :allow_nil => col.null
-      #when :time, :datetime :string 
+      #when :time, :datetime
+      when :string 
+        if col.limit
+          validates_length_of col.name, :maximum => col.limit, :allow_nil => col.null
+        end
       end
     end.compact + content_columns.map do |col|
       validates_presence_of col.name unless col.null
-    end.compact + content_columns.map do |col|
-      if col.limit
-        validates_length_of col.name, :maximum => col.limit, :allow_nil => col.null
-      end
     end
   end
 end
