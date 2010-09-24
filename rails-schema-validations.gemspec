@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Greg Weber"]
-  s.date = %q{2010-09-22}
+  s.date = %q{2010-09-24}
   s.description = %q{Automatically generate validations from the schema}
   s.email = %q{greg@gregweber.info}
   s.extra_rdoc_files = [
@@ -24,6 +24,10 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Automatically generate validations from the schema}
+  s.test_files = [
+    "test/validations_from_schema_test.rb",
+     "test/test_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
