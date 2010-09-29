@@ -1,7 +1,7 @@
 # this will put it in the scope of a model
 module ActiveRecord::Validations::ClassMethods
   def validations_from_schema
-    self.content_columns.map do |col|
+    self.columns.map do |col|
       case col.type
       when :integer
         # assuming unsigned!

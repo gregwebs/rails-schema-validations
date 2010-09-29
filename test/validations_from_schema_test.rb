@@ -17,8 +17,13 @@ def load_schema
         t.send(kind, "#{kind}_limit", :limit => 4)
         t.send(kind, "#{kind}_limit_notnull", :limit => 4, :null => false)
       end
-      t.timestamps
+
+      t.integer :indexed_id, :null => false
+      t.integer :unique_id, :null => false
     end
+
+    add_index 'models', ['indexed_id']
+    add_index 'models', ['unique_id'], :unqiue => true
   end
 end
 
@@ -32,7 +37,7 @@ context Model do
   setup { Model.new }
 
   def asserts_error_on field, value 
-    asserts("#{field} has an error with #{value}") do
+    asserts("#{field} has an error with #{value.inspect}") do
       topic.send("#{field}=", value)
       topic.valid?
       topic.errors[field.to_sym].present?
@@ -40,7 +45,7 @@ context Model do
   end
 
   def asserts_no_error_on field, value 
-    asserts("#{field} has no error with #{value}") do
+    asserts("#{field} has no error with #{value.inspect}") do
       topic.send("#{field}=", value)
       topic.valid?
       topic.errors[field.to_sym].blank?
@@ -65,4 +70,7 @@ context Model do
 
   asserts_no_error_on :string_limit, '12'
   asserts_no_error_on :integer_limit, 2 ** (8 * 3)
+
+  asserts_error_on :indexed_id, nil
+  asserts_error_on :unique_id, nil
 end
