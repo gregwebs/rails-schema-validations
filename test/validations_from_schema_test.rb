@@ -73,4 +73,6 @@ context Model do
 
   asserts_error_on :indexed_id, nil
   asserts_error_on :unique_id, nil
+
+  asserts_no_error_on :id, nil
 end

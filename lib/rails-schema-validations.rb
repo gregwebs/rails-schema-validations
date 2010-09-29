@@ -2,6 +2,8 @@
 module ActiveRecord::Validations::ClassMethods
   def validations_from_schema
     self.columns.map do |col|
+      next if col.primary
+
       case col.type
       when :integer
         # assuming unsigned!
