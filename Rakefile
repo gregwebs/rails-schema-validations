@@ -8,7 +8,7 @@ begin
     s.description = "Automatically generate validations from the schema"
     s.email = "greg@gregweber.info"
     s.homepage = "http://github.com/gregwebs/rails-schema-validations"
-    s.description = "Automatically generate validations from the schema"
+    s.description = "generate validations from the schema - used in production with MySQL"
     s.authors = ['Greg Weber']
     s.files = root_files + FileList["{app,config,lib}/**/*"]
     s.extra_rdoc_files = root_files
