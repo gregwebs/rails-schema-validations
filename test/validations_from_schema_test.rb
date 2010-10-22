@@ -9,7 +9,7 @@ def load_schema
 
   ActiveRecord::Schema.define do
     create_table "models", :force => true do |t|
-      %w(string integer float datetime date).each do |kind|
+      %w(string integer float datetime date boolean).each do |kind|
         t.send(kind, kind)
         t.send(kind, "#{kind}_notnull", :null => false)
       end
@@ -53,7 +53,7 @@ context Model do
   end
 
   # null
-  %w(string integer float date datetime).each do |name|
+  %w(string integer float date datetime boolean).each do |name|
     asserts_no_error_on name, nil
     asserts_error_on "#{name}_notnull", nil
   end
@@ -65,14 +65,20 @@ context Model do
   # only_integer
   asserts_error_on :integer_limit, 1.1
 
+  # limits
   asserts_error_on :string_limit, '12345678910'
   asserts_error_on :integer_limit, 2 ** (8 * 4)
-
   asserts_no_error_on :string_limit, '12'
   asserts_no_error_on :integer_limit, 2 ** (8 * 3)
 
+  # not null indexed columns
   asserts_error_on :indexed_id, nil
   asserts_error_on :unique_id, nil
+
+  # boolean
+  asserts_no_error_on :boolean_notnull, true
+  asserts_no_error_on :boolean_notnull, false
+  asserts_error_on :boolean_notnull, nil
 
   asserts_no_error_on :id, nil
 end
