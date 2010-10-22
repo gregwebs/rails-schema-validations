@@ -18,7 +18,7 @@ module ActiveRecord::Validations::ClassMethods
           validates_length_of col.name, :maximum => col.limit, :allow_nil => col.null
         end
       when :boolean
-        validates_inclusion_of col.name, :in => [true, false]
+        validates_inclusion_of col.name, :in => [true, false], :allow_nil => col.null
       end
     end.compact + content_columns.map do |col|
       validates_presence_of col.name unless col.null || col.type == :boolean
