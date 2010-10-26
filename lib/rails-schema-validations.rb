@@ -1,8 +1,11 @@
 # this will put it in the scope of a model
 module ActiveRecord::Validations::ClassMethods
-  def validations_from_schema
+  def validations_from_schema options = {}
+    except = [*options.delete(:except)].map {|c| c.to_s}
+    fail "unexpected arguments" if options.size != 0
+
     self.columns.map do |col|
-      next if col.primary
+      next if col.primary or except.include? col.name
 
       case col.type
       when :integer
@@ -21,7 +24,8 @@ module ActiveRecord::Validations::ClassMethods
         validates_inclusion_of col.name, :in => [true, false], :allow_nil => col.null
       end
     end.compact + content_columns.map do |col|
-      validates_presence_of col.name unless col.null || col.type == :boolean
+      next if col.null or col.type == :boolean or except.include? col.name
+      validates_presence_of col.name
     end
   end
 end

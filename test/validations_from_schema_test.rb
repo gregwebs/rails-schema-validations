@@ -12,6 +12,7 @@ def load_schema
       %w(string integer float datetime date boolean).each do |kind|
         t.send(kind, kind)
         t.send(kind, "#{kind}_notnull", :null => false)
+        t.send(kind, "#{kind}_excepted", :null => false)
       end
       %w(string integer).each do |kind|
         t.send(kind, "#{kind}_limit", :limit => 4)
@@ -30,7 +31,8 @@ end
 load_schema
 
 class Model < ActiveRecord::Base
-  validations_from_schema
+  validations_from_schema :except => (
+    %w(string integer float date datetime boolean). map {|s| "#{s}_excepted"})
 end
 
 context Model do
@@ -56,6 +58,8 @@ context Model do
   %w(string integer float date datetime boolean).each do |name|
     asserts_no_error_on name, nil
     asserts_error_on "#{name}_notnull", nil
+    # ignore
+    asserts_no_error_on "#{name}_excepted", nil
   end
   %w(string integer).each do |name|
     asserts_no_error_on "#{name}_limit", nil
@@ -80,5 +84,6 @@ context Model do
   asserts_no_error_on :boolean_notnull, false
   asserts_error_on :boolean_notnull, nil
 
+  # ignore
   asserts_no_error_on :id, nil
 end

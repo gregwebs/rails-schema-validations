@@ -1,8 +1,13 @@
+Summary
+=======
 Add validations to your models automatically based on the schema constraints.
 Place this one line in your model:
 
 validations_from_schema
 
+
+Generated Validations
+=====================
 
 | schema type | rails validation          | extra                     |
 |-------------|---------------------------|---------------------------|
@@ -11,7 +16,13 @@ validations_from_schema
 | integer     | validates_numericality_of | :only_integer, :less_than |
 | float       | validates_numericality_of |                           |
 
+for boolean non-null it uses validates_inclusion_of :in => [true,false]
 
+Options
+=======
+To exclude a column use the `:except => ['excluded']` option.
+
+Warning
+=======
 Tested on MySQL.
-Does not detect what database is being used.
-This gem may have problems on other databases, particularly Sqlite.
+Assume it doesn't work on your database unless you modify the test suite to run against your db and all tests pass
