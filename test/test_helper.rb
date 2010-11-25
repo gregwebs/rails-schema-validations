@@ -1,6 +1,5 @@
 ENV['RAILS_ENV'] = 'test'
 
-#require 'rubygems'
 require 'active_record'
 require 'riot'
 require 'riot/rails'

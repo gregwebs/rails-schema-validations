@@ -9,12 +9,13 @@ validations_from_schema
 Generated Validations
 =====================
 
-| schema type | rails validation          | extra                     |
+| schema type | rails validation          | extra constraints         |
 |-------------|---------------------------|---------------------------|
 | non-null    | validates_presence_of     |                           |
-| string      | validates_length_of       | :limit                    |
+| string      | validates_length_of       | :maximum                  |
 | integer     | validates_numericality_of | :only_integer, :less_than |
 | float       | validates_numericality_of |                           |
+| boolean     | validates_inclusion_of    |                           |
 
 for boolean non-null it uses validates_inclusion_of :in => [true,false]
 
@@ -24,5 +25,5 @@ To exclude a column use the `:except => ['excluded']` option.
 
 Warning
 =======
-Tested on MySQL.
+Tested on MySQL. Rails 2.3 and Rails 3
 Assume it doesn't work on your database unless you modify the test suite to run against your db and all tests pass
