@@ -17,7 +17,7 @@ module ActiveRecord::Validations::ClassMethods
         validates_numericality_of col.name, :allow_nil => col.null
       #when :time, :datetime
       when :string 
-        if col.limit
+        if col.limit.to_i > 0 # Mysql enum type shows up as a string with a limit of 0
           validates_length_of col.name, :maximum => col.limit, :allow_nil => col.null
         end
       when :boolean

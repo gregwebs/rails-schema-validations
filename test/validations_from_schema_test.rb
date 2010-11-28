@@ -21,6 +21,9 @@ def load_schema
 
       t.integer :indexed_id, :null => false
       t.integer :unique_id, :null => false
+
+      # very edge case of MySQL enum column
+      t.string "enum", :limit => 0, :null => false
     end
 
     add_index 'models', ['indexed_id']
@@ -86,4 +89,7 @@ context Model do
 
   # ignore
   asserts_no_error_on :id, nil
+
+  asserts_no_error_on :enum, 'enum'
+  asserts_error_on :enum, nil
 end
