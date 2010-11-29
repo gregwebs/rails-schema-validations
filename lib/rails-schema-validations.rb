@@ -16,7 +16,7 @@ module ActiveRecord::Validations::ClassMethods
         # less_than would need to look at col.scale, col.float
         validates_numericality_of col.name, :allow_nil => col.null
       #when :time, :datetime
-      when :string 
+      when :string, :text
         if col.limit.to_i > 0 # Mysql enum type shows up as a string with a limit of 0
           validates_length_of col.name, :maximum => col.limit, :allow_nil => col.null
         end

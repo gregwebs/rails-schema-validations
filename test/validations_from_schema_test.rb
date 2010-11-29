@@ -9,12 +9,12 @@ def load_schema
 
   ActiveRecord::Schema.define do
     create_table "models", :force => true do |t|
-      %w(string integer float datetime date boolean).each do |kind|
+      %w(text string integer float datetime date boolean).each do |kind|
         t.send(kind, kind)
         t.send(kind, "#{kind}_notnull", :null => false)
         t.send(kind, "#{kind}_excepted", :null => false)
       end
-      %w(string integer).each do |kind|
+      %w(text string integer).each do |kind|
         t.send(kind, "#{kind}_limit", :limit => 4)
         t.send(kind, "#{kind}_limit_notnull", :limit => 4, :null => false)
       end
@@ -35,7 +35,7 @@ load_schema
 
 class Model < ActiveRecord::Base
   validations_from_schema :except => (
-    %w(string integer float date datetime boolean). map {|s| "#{s}_excepted"})
+    %w(text string integer float date datetime boolean). map {|s| "#{s}_excepted"})
 end
 
 context Model do
@@ -58,13 +58,13 @@ context Model do
   end
 
   # null
-  %w(string integer float date datetime boolean).each do |name|
+  %w(text string integer float date datetime boolean).each do |name|
     asserts_no_error_on name, nil
     asserts_error_on "#{name}_notnull", nil
     # ignore
     asserts_no_error_on "#{name}_excepted", nil
   end
-  %w(string integer).each do |name|
+  %w(text string integer).each do |name|
     asserts_no_error_on "#{name}_limit", nil
     asserts_error_on "#{name}_limit_notnull", nil
   end
@@ -73,10 +73,13 @@ context Model do
   asserts_error_on :integer_limit, 1.1
 
   # limits
-  asserts_error_on :string_limit, '12345678910'
-  asserts_error_on :integer_limit, 2 ** (8 * 4)
   asserts_no_error_on :string_limit, '12'
   asserts_no_error_on :integer_limit, 2 ** (8 * 3)
+  asserts_no_error_on :text_limit, '12'
+
+  asserts_error_on :string_limit, '12345678910'
+  asserts_error_on :text_limit, 'a' * 2147
+  asserts_error_on :integer_limit, 2 ** (8 * 4)
 
   # not null indexed columns
   asserts_error_on :indexed_id, nil
