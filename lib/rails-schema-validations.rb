@@ -9,7 +9,7 @@ module ActiveRecord::Validations::ClassMethods
 
       case col.type
       when :integer
-        # assuming unsigned!
+        # / 2 assumes signed!
         validates_numericality_of col.name, :only_integer => true, :allow_nil => col.null,
           :less_than => (2 ** (8 * col.limit)) / 2
       when :float

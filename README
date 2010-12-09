@@ -25,5 +25,6 @@ To exclude a column use the `:except => ['excluded']` option.
 
 Warning
 =======
-Tested on MySQL. Rails 2.3 and Rails 3
-Assume it doesn't work on your database unless you modify the test suite to run against your db and all tests pass
+* Tested on MySQL. Rails 2.3 and Rails 3
+* Assumes signed integers for less_than constraint
+* Assume it doesn't work on your database unless you modify the test suite to run against your db and all tests pass

@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails-schema-validations}
-  s.version = "0.9.3"
+  s.version = "0.9.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Greg Weber"]
-  s.date = %q{2010-11-28}
+  s.date = %q{2010-12-09}
   s.description = %q{generate validations from the schema - used in production with MySQL}
   s.email = %q{greg@gregweber.info}
   s.extra_rdoc_files = [
